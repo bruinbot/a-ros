@@ -5,7 +5,7 @@
   <version>0.0.0</version>
   <description>Initial BruinBot Package</description>
   <maintainer email="jrsayono@gmail.com">jacobsayono</maintainer>
-  <license>TODO: License declaration</license>
+  <license>MIT License</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
