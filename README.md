@@ -1,9 +1,14 @@
 # a-ros
 
-### BruinBot ROS Architecture
+## BruinBot ROS Architecture
 We use ROS2 Foxy on Ubuntu 20.04 LTS.
 
-##### Implement package to your robot hardware or developer PC
+Dynamic Transforms:
+```
+sudo apt install ros-foxy-xacro ros-foxy-joint-state-publisher-gui
+```
+
+### Implement package to your robot hardware or developer PC
 
 In your home directory (~), clone the repo:
 ```
@@ -22,12 +27,8 @@ Build our files:
 cd ../.. && colcon build --symlink-install
 ```
 
-Source BruinBot pkg:
+Source BruinBot package and launch:
 ```
 source install/setup.bash
-```
-
-Launch!
-```
 ros2 launch bruinbot_pkg talker.launch.py
 ```
