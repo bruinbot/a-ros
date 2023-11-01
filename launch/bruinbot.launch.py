@@ -17,7 +17,7 @@ def generate_launch_description():
 
     # Process the URDF file
     pkg_path = os.path.join(get_package_share_directory('a-ros'))
-    xacro_file = os.path.join(pkg_path,'description','robot.urdf.xacro')
+    xacro_file = os.path.join(pkg_path,'description','bruinbot.urdf.xacro')
     robot_description_config = xacro.process_file(xacro_file)
     
     # Create a robot_state_publisher node
@@ -29,6 +29,12 @@ def generate_launch_description():
         parameters=[params]
     )
 
+    # Create a joint_state_publisher_gui node
+    node_joint_state_publisher_gui = Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        output='screen'
+    )
 
     # Launch!
     return LaunchDescription([
@@ -37,5 +43,6 @@ def generate_launch_description():
             default_value='false',
             description='Use sim time if true'),
 
-        node_robot_state_publisher
+        node_robot_state_publisher,
+        node_joint_state_publisher_gui  # Adding the new node to the launch description
     ])
