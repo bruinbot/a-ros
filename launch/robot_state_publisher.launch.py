@@ -8,7 +8,7 @@ import xacro
 def generate_launch_description():
 
     # Specify the name of the package and path to xacro file within the package
-    pkg_name = 'bruinbot_pkg'
+    pkg_name = 'a-ros'
     file_subpath = 'description/example_robot.urdf.xacro'
 
 
