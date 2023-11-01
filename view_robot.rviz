@@ -76,7 +76,7 @@ Visualization Manager:
                     {}
       Update Interval: 0
       Value: true
-    - Alpha: 0.5
+    - Alpha: 0.800000011920929
       Class: rviz_default_plugins/RobotModel
       Collision Enabled: false
       Description File: ""
@@ -185,10 +185,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.19039791822433472
+      Pitch: 0.46539780497550964
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.8453947901725769
+      Yaw: 3.9803950786590576
     Saved: ~
 Window Geometry:
   Displays:
