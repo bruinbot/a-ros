@@ -17,18 +17,15 @@ cd src
 git clone git@github.com:bruinbot/a-ros.git
 ```
 
-Source ROS2 Foxy:
+Go back to your robot_ws directory, then source ROS2 Foxy and build files:
 ```
+cd ../..
 source /opt/ros/foxy/setup.bash
+colcon build --symlink-install
 ```
 
-Build our files:
-```
-cd ../.. && colcon build --symlink-install
-```
-
-Source BruinBot package and launch:
+While in your robot_ws, source the BruinBot package (a-ros) and launch:
 ```
 source install/setup.bash
-ros2 launch bruinbot_pkg talker.launch.py
+ros2 launch a-ros bruinbot.launch.py
 ```
