@@ -27,5 +27,5 @@ colcon build --symlink-install
 While in your robot_ws, source the BruinBot package (a-ros) and launch:
 ```
 source install/setup.bash
-ros2 launch a-ros bruinbot.launch.py
+ros2 launch a-ros bruinbot_sim.launch.py
 ```
