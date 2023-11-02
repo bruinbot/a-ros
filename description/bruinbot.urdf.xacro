@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="bruinbot">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="bruinbot">
 
-    <xacro:include filename="bruinbot_core.xacro"/>
+    <xacro:include filename="bruinbot_core.xacro" />
 
+    <xacro:include filename="bruinbot_gazebo_control.xacro" />
+    
 </robot>

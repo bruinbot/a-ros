@@ -27,5 +27,10 @@ colcon build --symlink-install
 While in your robot_ws, source the BruinBot package (a-ros) and launch:
 ```
 source install/setup.bash
-ros2 launch a-ros bruinbot.launch.py
+ros2 launch a-ros bruinbot_sim.launch.py
+```
+
+To tele-operate the robot:
+```
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
