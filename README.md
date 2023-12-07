@@ -3,6 +3,8 @@
 ## BruinBot ROS Architecture
 We use ROS2 Foxy on Ubuntu 20.04 LTS.
 
+![BruinBot Simulation](assets/bruinbot_simulation.png)
+
 Dynamic Transforms:
 ```
 sudo apt install ros-foxy-xacro ros-foxy-joint-state-publisher-gui
