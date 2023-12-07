@@ -4,5 +4,6 @@
     <xacro:include filename="bruinbot_core.xacro" />
 
     <xacro:include filename="bruinbot_gazebo_control.xacro" />
+    <xacro:include filename="bruinbot_camera.xacro" />
     
 </robot>
