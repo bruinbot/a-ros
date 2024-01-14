@@ -16,6 +16,11 @@ sudo apt install ros-foxy-image-transport-plugins
 sudo apt install ros-foxy-rqt-image-view
 ```
 
+Install ros2_control:
+```
+sudo apt install ros-foxy-ros2-control ros-foxy-ros2-controllers ros-foxy-gazebo-ros2-control
+```
+
 ### Implement package to your robot hardware or developer PC
 
 In your home directory (~), clone the repo:
@@ -35,12 +40,17 @@ colcon build --symlink-install
 While in your robot_ws, source the a-ros package and launch BruinBot simulator:
 ```
 source install/setup.bash
-ros2 launch a-ros bruinbot_sim.launch.py world:=./src/a-ros/worlds/test_world.world
+ros2 launch a-ros bruinbot_sim.launch.py world:=./src/a-ros/worlds/obstacles.world
 ```
 
 To tele-operate the robot:
 ```
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+
+Re-map tele-op to use ros2_control:
+```
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/diff_cont/cmd_vel_unstamped
 ```
 
 To open image view:
