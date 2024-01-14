@@ -43,6 +43,8 @@ source install/setup.bash
 ros2 launch a-ros bruinbot_sim.launch.py world:=./src/a-ros/worlds/obstacles.world
 ```
 
+### Use new terminals for the following commands. Remember to source both foxy and the a-ros package.
+
 To tele-operate the robot:
 ```
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
@@ -51,6 +53,11 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 Re-map tele-op to use ros2_control:
 ```
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/diff_cont/cmd_vel_unstamped
+```
+
+Run rviz2 with camera and lidar:
+```
+rviz2 -d src/a-ros/config/ros2_control.rviz 
 ```
 
 To open image view:
