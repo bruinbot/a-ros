@@ -1,10 +1,20 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="bruinbot">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+
+    <xacro:arg name="use_ros2_control" default="true"/>
 
     <xacro:include filename="bruinbot_core.xacro" />
 
-    <xacro:include filename="bruinbot_gazebo_control.xacro" />
+    <xacro:if value="$(arg use_ros2_control)">
+        <xacro:include filename="bruinbot_ros2_control.xacro" />
+    </xacro:if>
+    <xacro:unless value="$(arg use_ros2_control)">
+        <xacro:include filename="bruinbot_gazebo_control.xacro" />
+    </xacro:unless>
     <xacro:include filename="bruinbot_lidar.xacro" />
     <xacro:include filename="bruinbot_camera.xacro" />
+    <!-- <xacro:include filename="bruinbot_depth_camera.xacro" /> -->
+
+    <xacro:include filename="bruinbot_face.xacro" />
     
 </robot>

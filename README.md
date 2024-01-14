@@ -3,7 +3,7 @@
 ## BruinBot ROS Architecture
 We use ROS2 Foxy on Ubuntu 20.04 LTS.
 
-![BruinBot Simulation](assets/bruinbot_simulation.png)
+![BruinBot Simulation](assets/bruinbot_sim.png)
 
 Dynamic Transforms:
 ```
@@ -14,6 +14,11 @@ Compressed Images Plugin:
 ```
 sudo apt install ros-foxy-image-transport-plugins
 sudo apt install ros-foxy-rqt-image-view
+```
+
+Install ros2_control:
+```
+sudo apt install ros-foxy-ros2-control ros-foxy-ros2-controllers ros-foxy-gazebo-ros2-control
 ```
 
 ### Implement package to your robot hardware or developer PC
@@ -35,12 +40,24 @@ colcon build --symlink-install
 While in your robot_ws, source the a-ros package and launch BruinBot simulator:
 ```
 source install/setup.bash
-ros2 launch a-ros bruinbot_sim.launch.py world:=./src/a-ros/worlds/test_world.world
+ros2 launch a-ros bruinbot_sim.launch.py world:=./src/a-ros/worlds/obstacles.world
 ```
+
+### Use new terminals for the following commands. Remember to source both foxy and the a-ros package.
 
 To tele-operate the robot:
 ```
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+
+Re-map tele-op to use ros2_control:
+```
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/diff_cont/cmd_vel_unstamped
+```
+
+Run rviz2 with camera and lidar:
+```
+rviz2 -d src/a-ros/config/ros2_control.rviz 
 ```
 
 To open image view:
