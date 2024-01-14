@@ -3,7 +3,7 @@
 ## BruinBot ROS Architecture
 We use ROS2 Foxy on Ubuntu 20.04 LTS.
 
-![BruinBot Simulation](assets/bruinbot_simulation.png)
+![BruinBot Simulation](assets/bruinbot_sim.png)
 
 Dynamic Transforms:
 ```
