@@ -51,16 +51,16 @@ def generate_launch_description():
     # Code for delaying a node (I haven't tested how effective it is)
     # 
     # First add the below lines to imports
-    # from launch.actions import RegisterEventHandler
-    # from launch.event_handlers import OnProcessExit
+    from launch.actions import RegisterEventHandler
+    from launch.event_handlers import OnProcessExit
     #
     # Then add the following below the current diff_drive_spawner
-    # delayed_diff_drive_spawner = RegisterEventHandler(
-    #     event_handler=OnProcessExit(
-    #         target_action=spawn_entity,
-    #         on_exit=[diff_drive_spawner],
-    #     )
-    # )
+    delayed_diff_drive_spawner = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=spawn_entity,
+            on_exit=[diff_drive_spawner],
+        )
+    )
     #
     # Replace the diff_drive_spawner in the final return with delayed_diff_drive_spawner
 
@@ -69,6 +69,7 @@ def generate_launch_description():
         bruinbot,
         gazebo,
         spawn_entity,
-        diff_drive_spawner,
+        # diff_drive_spawner,
+        delayed_diff_drive_spawner,
         joint_broad_spawner
     ])
