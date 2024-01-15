@@ -3,7 +3,10 @@
 ## BruinBot ROS Architecture
 We use ROS2 Foxy on Ubuntu 20.04 LTS.
 
+![BruinBot Simulation](assets/bruinbot_simulation.png)
+![BruinBot Simulation](assets/bruinbot_control.png)
 ![BruinBot Simulation](assets/bruinbot_sim.png)
+![BruinBot Simulation](assets/bruinbot_slam.png)
 
 Dynamic Transforms:
 ```
@@ -91,7 +94,7 @@ ros2 launch slam_toolbox online_async_launch.py  params_file:=./src/a-ros/config
 ```
 On rviz2, create a Map and set topic to /map
 
-Save generated map (as you drive around), and then set the mapper_params_online_async.yaml `mode = localization`
+Save generated map (as you drive around), and then set the mapper_params_online_async.yaml `mode = localization` and uncomment the map file path and map_start_at_doc lines
 Here we saved the map name as `map_save`.
 
 ### Adaptive Monte Carlo Localization (AMCL):
