@@ -20,6 +20,16 @@ Install ros2_control:
 ```
 sudo apt install ros-foxy-ros2-control ros-foxy-ros2-controllers ros-foxy-gazebo-ros2-control
 ```
+Install slam_toolbox (we will use online asynchronous):
+```
+sudo apt install ros-foxy-slam-toolbox
+```
+Copy the online async .yaml file into our config directory (you will see command line to do this below after you setup lidar, control, etc.)
+
+Install nav2:
+```
+sudo apt install ros-foxy-navigation2 ros-foxy-nav2-bringup ros-foxy-turtlebot3*
+```
 
 ### Implement package to your robot hardware or developer PC
 
@@ -69,3 +79,39 @@ ros2 run rqt_image_view rqt_image_view
 ```
 ros2 run image_transport republish compressed raw --ros-args -r in/compressed:=/camera/image_raw/compressed -r out:=/camera/image_raw/uncompressed
 ```
+
+Copy online async slam_toolbox into our config directory. Run this command from home directory (~):
+```
+cp /opt/ros/foxy/share/slam_toolbox/config/mapper_params_online_async.yaml dev_ws/src/a-ros/config
+```
+
+Launch slam_toolbox:
+```
+ros2 launch slam_toolbox online_async_launch.py  params_file:=./src/a-ros/config/mapper_params_online_async.yaml use_sim_time:=true
+```
+On rviz2, create a Map and set topic to /map
+
+Save generated map (as you drive around), and then set the mapper_params_online_async.yaml `mode = localization`
+Here we saved the map name as `map_save`.
+
+### Adaptive Monte Carlo Localization (AMCL):
+Note -- this is part of the nav2 stack
+```
+ros2 run nav2_map_server map_server --ros-args -p yaml_filename:=map_save.yaml -p use_sim_time:=true
+```
+And on new terminal, run lifecycle_bringup on map_server:
+```
+ros2 run nav2_util lifecycle_bringup map_server
+```
+On rviz2:
+Map -> Topic -> Durability Policy = Transient Local
+
+Run AMCL to localize our robot against the map:
+```
+ros2 run nav2_amcl amcl --ros-args -p use_sim_time:=true
+```
+Use the lifecycle_bringup terminal and put it on amcl instead:
+```
+ros2 run nav2_util lifecycle_bringup amcl
+```
+Then in rviz2, click on `2D Pose Estimate` and drag and drop the arrow where your robot is currently located and facing at
