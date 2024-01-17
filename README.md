@@ -114,6 +114,7 @@ ros2 launch a-ros joystick.launch.py
 Copy online async slam_toolbox into our config directory. Run this command from home directory (~):
 ```
 cp /opt/ros/foxy/share/slam_toolbox/config/mapper_params_online_async.yaml dev_ws/src/a-ros/config
+```
 
 Launch slam_toolbox:
 ```
@@ -124,7 +125,7 @@ On rviz2, create a Map and set topic to /map
 Save generated map (as you drive around), and then set the mapper_params_online_async.yaml `mode = localization` and uncomment the map file path and map_start_at_doc lines
 Here we saved the map name as `map_save`.
 
-#### Adaptive Monte Carlo Localization (AMCL):
+### Adaptive Monte Carlo Localization (AMCL):
 
 Note -- this is part of the nav2 stack
 ```
