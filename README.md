@@ -177,3 +177,14 @@ Files from nav2 copied to this repository, so can use these commands instead on 
 ros2 launch a-ros bruinbot_localization_launch.py map:=./map_save.yaml use_sim_time:=true
 ros2 launch a-ros bruinbot_navigation_launch.py use_sim_time:=true map_subscript_transient_local:=true
 ```
+
+### Ball Tracker
+https://github.com/joshnewans/ball_tracker
+```
+ros2 launch a-ros bruinbot_ball_tracker.launch.py sim_mode:=true
+```
+
+Optional:
+```
+ros2 topic echo /detected_ball
+```
