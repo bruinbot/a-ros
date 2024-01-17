@@ -39,6 +39,14 @@
         <color rgba="1 0 0 1"/>
     </material>
 
+    <material name="ucla blue">
+        <color rgba="0.153 0.455 0.682 1"/>
+    </material>
+
+    <material name="ucla gold">
+        <color rgba="1 0.820 0 1"/>
+    </material>    
+
     <!-- BASE LINK -->
 
     <link name="base_link">
@@ -71,7 +79,7 @@
             <geometry>
                 <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
             </geometry>
-            <material name="orange"/>
+            <material name="ucla gold"/>
         </visual>
         <collision>
             <origin xyz="${chassis_length/2} 0 ${chassis_height/2}"/>
@@ -85,7 +93,7 @@
     </link>
 
     <gazebo reference="chassis">
-        <material>Gazebo/Orange</material>
+        <material>Gazebo/Yellow</material>
     </gazebo>
 
     <!-- LEFT WHEEL LINK -->
@@ -102,7 +110,7 @@
             <geometry>
                 <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
             </geometry>
-            <material name="blue"/>
+            <material name="ucla blue"/>
         </visual>
         <collision>
             <geometry>
@@ -115,7 +123,7 @@
     </link>
 
     <gazebo reference="left_wheel">
-        <material>Gazebo/Blue</material>
+        <material>Gazebo/Turquoise</material>
     </gazebo>
 
 
@@ -135,7 +143,7 @@
             <geometry>
                 <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
             </geometry>
-            <material name="blue"/>
+            <material name="ucla blue"/>
         </visual>
         <collision>
             <geometry>
@@ -148,7 +156,7 @@
     </link>
 
     <gazebo reference="right_wheel">
-        <material>Gazebo/Blue</material>
+        <material>Gazebo/Turquoise</material>
     </gazebo>
 
 
