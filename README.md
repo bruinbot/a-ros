@@ -182,5 +182,9 @@ ros2 launch a-ros bruinbot_navigation_launch.py use_sim_time:=true map_subscript
 https://github.com/joshnewans/ball_tracker
 ```
 ros2 launch a-ros bruinbot_ball_tracker.launch.py sim_mode:=true
+```
+
+Optional:
+```
 ros2 topic echo /detected_ball
 ```
