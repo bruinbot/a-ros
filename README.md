@@ -1,13 +1,32 @@
 # a-ros
 
 ## BruinBot ROS Architecture
-We use ROS2 Foxy on Ubuntu 20.04 LTS.
+
+Upgraded to ROS2 Humble on Ubuntu 22.04 LTS.
+Feb 1st, 2024
 
 ![BruinBot Simulation](assets/bruinbot_simulation.png)
 ![BruinBot Simulation](assets/bruinbot_sim.png)
 ![BruinBot Simulation](assets/bruinbot_slam.png)
 ![BruinBot Simulation](assets/bruinbot_nav2.png)
 ![BruinBot Simulation](assets/bruinbot_amcl.png)
+
+```
+sudo apt-get install ros-humble-gazebo-ros-pkgs
+sudo apt install ros-humble-xacro-humble-joint-state-publisher-gui
+sudo apt install ros-humble-image-transport-plugins
+sudo apt install ros-humble-rqt-image-view
+sudo apt install ros-humble-ros2-control ros-humble-ros2-controllers ros-humble-gazebo-ros2-control
+sudo apt install ros-humble-slam-toolbox
+sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup ros-humble-turtlebot3*
+sudo apt install ros-humble-twist-mux
+sudo apt install joystick jstest-gtk evtest
+```
+TODO: Put these in requirements.txt
+
+## 2023 Notes and Progress
+
+We use ROS2 Foxy on Ubuntu 20.04 LTS.
 
 Dynamic Transforms:
 ```

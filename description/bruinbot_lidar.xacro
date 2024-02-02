@@ -4,13 +4,20 @@
     <joint name="laser_joint" type="fixed">
         <parent link="chassis"/>
         <child link="laser_frame"/>
-        <origin xyz="0.1 0 0.175" rpy="0 0 0"/>
+        <origin xyz="0.122 0 0.212" rpy="0 0 0"/>
     </joint>
 
     <link name="laser_frame">
         <visual>
             <geometry>
                 <cylinder radius="0.05" length="0.04"/>
+            </geometry>
+            <material name="ucla blue"/>
+        </visual>
+        <visual>
+            <origin xyz="0 0 -0.05"/>
+            <geometry>
+                <cylinder radius="0.01" length="0.1"/>
             </geometry>
             <material name="ucla blue"/>
         </visual>
@@ -29,7 +36,7 @@
 
         <sensor name="laser" type="ray">
             <pose> 0 0 0 0 0 0 </pose>
-            <visualize>true</visualize>
+            <visualize>false</visualize>
             <update_rate>10</update_rate>
             <ray>
                 <scan>
