@@ -24,6 +24,25 @@ sudo apt install joystick jstest-gtk evtest
 ```
 TODO: Put these in requirements.txt
 
+## SSH to Raspberry Pi
+Wifi auto connect config stored here in Raspberry Pi. Change the ssid and psk to your own router. This file can also be newly added in /boot when you etch the RPi imager the first time (?)
+`/etc/wpa_supplicant/wpa_supplicant.conf`
+
+Some useful commands to figure out your ipaddress or devices connected to the network:
+```
+ifconfig
+ip addr
+arp -a
+nmap -sn 192.168.1.0/24
+```
+(or whatever its ipaddress is)
+
+SSH into RPi:
+`ssh pi@172.20.10.4` (or whatever its ipaddress is)
+
+RPi Password:
+`raspberry`
+
 ## 2023 Notes and Progress
 
 We use ROS2 Foxy on Ubuntu 20.04 LTS.
