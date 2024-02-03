@@ -43,6 +43,12 @@ This is basically the same as above, but we don't install gazebo on the RPi sinc
 
 Go back to robot_ws, source humble and this repo (i.e. source /opt/ros/humble/setup.bash && source install/setup.bash), and `colcon build --symlink-install`
 
+```
+robot_ws/
+    |___src/
+        |___a-ros/  (cloned this repo)
+```
+
 ## SSH to Raspberry Pi
 Wifi auto connect config stored here in Raspberry Pi. Change the ssid and psk to your own router. This file can also be newly added in /boot when you etch the RPi imager the first time (?)
 `/etc/wpa_supplicant/wpa_supplicant.conf`
@@ -62,18 +68,8 @@ SSH into RPi:
 RPi Password:
 `raspberry`
 
-Clone package repo, cd into package, and run command:
-`sudo apt install -r requirements.txt`
-
-Your file structure:
-```
-robot_ws/
-    |___src/
-        |___a-ros/
-```
-
-Go back up two levels (i.e. `cd ../..`) to get to `robot_ws/` and run command:
-`colcon build --symlink-install`
+Safe shutdown via terminal:
+`sudo shutdown -h now`
 
 ## 2023 Notes and Progress
 
