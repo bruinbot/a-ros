@@ -13,16 +13,63 @@ Feb 1st, 2024
 
 ```
 sudo apt-get install ros-humble-gazebo-ros-pkgs
-sudo apt install ros-humble-xacro-humble-joint-state-publisher-gui
+sudo apt install ros-humble-gazebo-ros2-control
+sudo apt install python3-colcon-common-extensions
+sudo apt install ros-humble-xacro
+sudo apt install ros-humble-joint-state-publisher-gui
 sudo apt install ros-humble-image-transport-plugins
 sudo apt install ros-humble-rqt-image-view
-sudo apt install ros-humble-ros2-control ros-humble-ros2-controllers ros-humble-gazebo-ros2-control
+sudo apt install ros-humble-ros2-control
+sudo apt install ros-humble-ros2-controllers
 sudo apt install ros-humble-slam-toolbox
-sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup ros-humble-turtlebot3*
+sudo apt install ros-humble-navigation2
+sudo apt install ros-humble-nav2-bringup
 sudo apt install ros-humble-twist-mux
 sudo apt install joystick jstest-gtk evtest
 ```
-TODO: Put these in requirements.txt
+#### Note that gazebo in humble is not available in arm64. Only amd64 at the moment (as of Feb 2024). This means that your PC should be running on amd or intel chip (old macbooks have them).
+
+Check out this link for available ROS packages:
+
+http://packages.ros.org/ros2/ubuntu/pool/main/r/
+
+~~TODO: Put these in requirements.txt for robot version~~
+
+## Run this command instead if you are cloning repo into physical robot (Raspberry Pi)
+```
+sudo apt update && cat requirements.txt | xargs sudo apt install -y
+```
+This is basically the same as above, but we don't install gazebo on the RPi since we will be doing visualization on our development PC.
+
+Go back to robot_ws, source humble and this repo (i.e. source /opt/ros/humble/setup.bash && source install/setup.bash), and `colcon build --symlink-install`
+
+```
+robot_ws/
+    |___src/
+        |___a-ros/  (cloned this repo)
+```
+
+## SSH to Raspberry Pi
+Wifi auto connect config stored here in Raspberry Pi. Change the ssid and psk to your own router. This file can also be newly added in /boot when you etch the RPi imager the first time (?)
+`/etc/wpa_supplicant/wpa_supplicant.conf`
+
+Some useful commands to figure out your ipaddress or devices connected to the network:
+```
+ifconfig
+ip addr
+arp -a
+nmap -sn 192.168.1.0/24
+```
+(or whatever its ipaddress is)
+
+SSH into RPi:
+`ssh pi@172.20.10.4` (or whatever its ipaddress is)
+
+RPi Password:
+`raspberry`
+
+Safe shutdown via terminal:
+`sudo shutdown -h now`
 
 ## 2023 Notes and Progress
 
@@ -207,3 +254,6 @@ Optional:
 ```
 ros2 topic echo /detected_ball
 ```
+
+### Data Collection (via rosbag)
+https://github.com/bruinbot/a-datacollection
