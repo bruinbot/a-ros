@@ -50,25 +50,29 @@ robot_ws/
 ```
 
 ## SSH to Raspberry Pi
-Wifi auto connect config stored here in Raspberry Pi. Change the ssid and psk to your own router. This file can also be newly added in /boot when you etch the RPi imager the first time (?)
+Wifi auto connect config stored here in Raspberry Pi. Change the ssid and psk to your own router. This file can also be newly added in /boot when you etch the RPi imager the first time(?):
+
 `/etc/wpa_supplicant/wpa_supplicant.conf`
 
-Some useful commands to figure out your ipaddress or devices connected to the network:
+Some useful commands to figure out your ipaddress or devices connected to the network. Try whichever:
 ```
 ifconfig
 ip addr
 arp -a
 nmap -sn 192.168.1.0/24
 ```
-(or whatever its ipaddress is)
+(or whatever the ipaddress is)
 
 SSH into RPi:
-`ssh pi@172.20.10.4` (or whatever its ipaddress is)
+
+`ssh pi@172.20.10.4` (or whatever the ipaddress is)
 
 RPi Password:
+
 `raspberry`
 
 Safe shutdown via terminal:
+
 `sudo shutdown -h now`
 
 ## Serial Comms (Arduino-RPi) + VSCode SSH & Extension
@@ -91,28 +95,36 @@ In .vscode/arduino.json you can add `"output": "build"` below the list (don't fo
 The purpose of this code is to flash some code from the RPi to the arduino so that it can read and write to the motor driver properly.
 
 To test, go to your home directory of your robot_ws (via SSH), and clone this repo:
+
 `git clone https://github.com/joshnewans/ros_arduino_bridge.git`
 
 Make sure you flash the ROSArduinoBridge to your arduino (upload the .ino code).
 
 Connect your motor driver to the arduino and check to see if the RPi can report motor states and command it.
+
 `python3 -m serial.tools.miniterm -e /dev/ttyACM0 57600`
 
 Go to your robot_ws/src/ directory and clone a demo package to test serial connection for motor control:
+
 `git clone https://github.com/joshnewans/serial_motor_demo`
 
 Note: Remove setup warning triggers by running this command (downgrade version):
+
 `sudo apt install python3-pip`
 `pip install setuptools==58.2.0`
 
 Now build:
+
 `cd .. && colcon build --symlink-install`
 
 Test ROS2, driver is listening to a topic for motor speeds:
+
 `ros2 run serial_motor_demo driver --ros-args -p serial_port:=/dev/ttyACM0 -p baud_rate:=57600 -p loop_rate:=30 -p encoder_cpr:=3450`
 
 On Dev machine:
+
 `ros2 run serial_motor_demo gui`
+
 Play around with motors.
 
 ## 2023 Notes and Progress
