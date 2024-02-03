@@ -13,6 +13,7 @@ Feb 1st, 2024
 
 ```
 sudo apt-get install ros-humble-gazebo-ros-pkgs
+sudo apt install python3-colcon-common-extensions
 sudo apt install ros-humble-xacro-humble-joint-state-publisher-gui
 sudo apt install ros-humble-image-transport-plugins
 sudo apt install ros-humble-rqt-image-view
@@ -42,6 +43,19 @@ SSH into RPi:
 
 RPi Password:
 `raspberry`
+
+Clone package repo, cd into package, and run command:
+`sudo apt install -r requirements.txt`
+
+Your file structure:
+```
+robot_ws/
+    |___src/
+        |___a-ros/
+```
+
+Go back up two levels (i.e. `cd ../..`) to get to `robot_ws/` and run command:
+`colcon build --symlink-install`
 
 ## 2023 Notes and Progress
 
@@ -226,3 +240,6 @@ Optional:
 ```
 ros2 topic echo /detected_ball
 ```
+
+### Data Collection (via rosbag)
+https://github.com/bruinbot/a-datacollection
