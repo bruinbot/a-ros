@@ -1,13 +1,135 @@
 # a-ros
 
 ## BruinBot ROS Architecture
-We use ROS2 Foxy on Ubuntu 20.04 LTS.
+
+Upgraded to ROS2 Humble on Ubuntu 22.04 LTS.
+Feb 1st, 2024
 
 ![BruinBot Simulation](assets/bruinbot_simulation.png)
 ![BruinBot Simulation](assets/bruinbot_sim.png)
 ![BruinBot Simulation](assets/bruinbot_slam.png)
 ![BruinBot Simulation](assets/bruinbot_nav2.png)
 ![BruinBot Simulation](assets/bruinbot_amcl.png)
+
+```
+sudo apt-get install ros-humble-gazebo-ros-pkgs
+sudo apt install ros-humble-gazebo-ros2-control
+sudo apt install python3-colcon-common-extensions
+sudo apt install ros-humble-xacro
+sudo apt install ros-humble-joint-state-publisher-gui
+sudo apt install ros-humble-image-transport-plugins
+sudo apt install ros-humble-rqt-image-view
+sudo apt install ros-humble-ros2-control
+sudo apt install ros-humble-ros2-controllers
+sudo apt install ros-humble-slam-toolbox
+sudo apt install ros-humble-navigation2
+sudo apt install ros-humble-nav2-bringup
+sudo apt install ros-humble-twist-mux
+sudo apt install joystick jstest-gtk evtest
+```
+#### Note that gazebo in humble is not available in arm64. Only amd64 at the moment (as of Feb 2024). This means that your PC should be running on amd or intel chip (old macbooks have them).
+
+Check out this link for available ROS packages:
+
+http://packages.ros.org/ros2/ubuntu/pool/main/r/
+
+~~TODO: Put these in requirements.txt for robot version~~
+
+## Run this command instead if you are cloning repo into physical robot (Raspberry Pi)
+```
+sudo apt update && cat requirements.txt | xargs sudo apt install -y
+```
+This is basically the same as above, but we don't install gazebo on the RPi since we will be doing visualization on our development PC.
+
+Go back to robot_ws, source humble and this repo (i.e. source /opt/ros/humble/setup.bash && source install/setup.bash), and `colcon build --symlink-install`
+
+```
+robot_ws/
+    |___src/
+        |___a-ros/  (cloned this repo)
+```
+
+## SSH to Raspberry Pi
+Wifi auto connect config stored here in Raspberry Pi. Change the ssid and psk to your own router. This file can also be newly added in /boot when you etch the RPi imager the first time(?):
+
+`/etc/wpa_supplicant/wpa_supplicant.conf`
+
+Some useful commands to figure out your ipaddress or devices connected to the network. Try whichever:
+```
+ifconfig
+ip addr
+arp -a
+nmap -sn 192.168.1.0/24
+```
+(or whatever the ipaddress is)
+
+SSH into RPi:
+
+`ssh pi@172.20.10.4` (or whatever the ipaddress is)
+
+RPi Password:
+
+`raspberry`
+
+Safe shutdown via terminal:
+
+`sudo shutdown -h now`
+
+## Serial Comms (Arduino-RPi) + VSCode SSH & Extension
+```
+sudo adduser $USER dialout
+sudo apt install python3-serial
+sudo snap install arduino-cli
+```
+Reboot RPi. On Dev machine, install VSCode SSH extension and connect to host pi@172.20.10.4 and then type in the Pi's password.
+
+Install the VSCode's Arduino extension (which will be on the RPi). Then click on the extension settings, click on Remote[SSH:172.20.10.4] tab at the top (next to User), and click the check box for `Arduino: Use Arduino Cli`.
+
+Create an arduino sketch (e.g. Blink.ino or check the section after this), and make sure the file is the same name as the directory (just how Arduino works I suppose...)
+
+Bottom right corner: select port (there should be arduino note; in my case it was /dev/ttyACM0), select board (install arduino avr boards), select programmer (I chose AVRISP mkII). Verify & upload code.
+
+In .vscode/arduino.json you can add `"output": "build"` below the list (don't forget a comma before the last item since you're adding a new item now) to speed up compile time in the future.
+
+## ROS-Arduino Bridge
+The purpose of this code is to flash some code from the RPi to the arduino so that it can read and write to the motor driver properly.
+
+To test, go to your home directory of your robot_ws (via SSH), and clone this repo:
+
+`git clone https://github.com/joshnewans/ros_arduino_bridge.git`
+
+Make sure you flash the ROSArduinoBridge to your arduino (upload the .ino code).
+
+Connect your motor driver to the arduino and check to see if the RPi can report motor states and command it.
+
+`python3 -m serial.tools.miniterm -e /dev/ttyACM0 57600`
+
+Go to your robot_ws/src/ directory and clone a demo package to test serial connection for motor control:
+
+`git clone https://github.com/joshnewans/serial_motor_demo`
+
+Note: Remove setup warning triggers by running this command (downgrade version):
+
+`sudo apt install python3-pip`
+`pip install setuptools==58.2.0`
+
+Now build:
+
+`cd .. && colcon build --symlink-install`
+
+Test ROS2, driver is listening to a topic for motor speeds:
+
+`ros2 run serial_motor_demo driver --ros-args -p serial_port:=/dev/ttyACM0 -p baud_rate:=57600 -p loop_rate:=30 -p encoder_cpr:=3450`
+
+On Dev machine:
+
+`ros2 run serial_motor_demo gui`
+
+Play around with motors.
+
+## 2023 Notes and Progress
+
+We use ROS2 Foxy on Ubuntu 20.04 LTS.
 
 Dynamic Transforms:
 ```
@@ -188,3 +310,6 @@ Optional:
 ```
 ros2 topic echo /detected_ball
 ```
+
+### Data Collection (via rosbag)
+https://github.com/bruinbot/a-datacollection
