@@ -100,11 +100,17 @@ To test, go to your home directory of your robot_ws (via SSH), and clone this re
 
 Make sure you flash the ROSArduinoBridge to your arduino (upload the .ino code).
 
+Note: if you are using an `Arduino Nano` instead and there are some issues, try to `sudo apt-get remove brltty` that may be colliding with the USB port to pick up the nano. Furthermore, when selecting the board, you may need to pick the old bootloader processor. The port name would be `ttyUSB0` too.
+
 Connect your motor driver to the arduino and check to see if the RPi can report motor states and command it.
 
 `python3 -m serial.tools.miniterm -e /dev/ttyACM0 57600`
 
-Go to your robot_ws/src/ directory and clone a demo package to test serial connection for motor control:
+or
+
+`python3 -m serial.tools.miniterm -e /dev/ttyUSB0 57600`
+
+Go to your robot_ws/src/ directory and clone a demo package to test serial connection for motor control (do this for both dev and robot workspaces):
 
 `git clone https://github.com/joshnewans/serial_motor_demo`
 
@@ -120,6 +126,10 @@ Now build:
 Test ROS2, driver is listening to a topic for motor speeds:
 
 `ros2 run serial_motor_demo driver --ros-args -p serial_port:=/dev/ttyACM0 -p baud_rate:=57600 -p loop_rate:=30 -p encoder_cpr:=3450`
+
+or
+
+`ros2 run serial_motor_demo driver --ros-args -p serial_port:=/dev/ttyUSB0 -p baud_rate:=57600 -p loop_rate:=30 -p encoder_cpr:=3450`
 
 On Dev machine:
 
