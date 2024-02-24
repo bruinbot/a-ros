@@ -110,6 +110,16 @@ or
 
 `python3 -m serial.tools.miniterm -e /dev/ttyUSB0 57600`
 
+o <PWM1> <PWM2>: set raw PWM speed of each motor (-255 to 255)
+e: motor responds with current encoder counts for each motor
+r: reset encoder values
+m <Speed1> <Speed2>: set closed-loop speed of each motor in *counts per loop* (default loop rate is 30), so `(counts per sec) / 30`
+
+Try rotating the motor in one full revolution by hand, and record encoder counts per revolution. We got a result of 1950, so 1950/30 = 65.
+
+E.g.:
+`m 65 65` should rotate the motor at a speed of one revolution per second.
+
 Go to your robot_ws/src/ directory and clone a demo package to test serial connection for motor control (do this for both dev and robot workspaces):
 
 `git clone https://github.com/joshnewans/serial_motor_demo`
@@ -125,17 +135,35 @@ Now build:
 
 Test ROS2, driver is listening to a topic for motor speeds:
 
-`ros2 run serial_motor_demo driver --ros-args -p serial_port:=/dev/ttyACM0 -p baud_rate:=57600 -p loop_rate:=30 -p encoder_cpr:=3450`
+`ros2 run serial_motor_demo driver --ros-args -p serial_port:=/dev/ttyACM0 -p baud_rate:=57600 -p loop_rate:=30 -p encoder_cpr:=1950`
 
 or
 
-`ros2 run serial_motor_demo driver --ros-args -p serial_port:=/dev/ttyUSB0 -p baud_rate:=57600 -p loop_rate:=30 -p encoder_cpr:=3450`
+`ros2 run serial_motor_demo driver --ros-args -p serial_port:=/dev/ttyUSB0 -p baud_rate:=57600 -p loop_rate:=30 -p encoder_cpr:=1950`
 
 On Dev machine:
 
 `ros2 run serial_motor_demo gui`
 
 Play around with motors.
+
+## Tele-op with Joystick Controller
+
+Clone these into robot_ws/src:
+
+https://github.com/jacobsayono/diffdrive_arduino.git
+
+https://github.com/jacobsayono/serial.git
+
+Make sure RPi (robot_ws) has `sudo apt install ros-humble-ros2-control ros-humble-ros2-controllers`
+
+You may have to do this but probably not: `sudo apt install ros-humble-hardware-interface`
+
+*Make sure to change diffdrive_arduino to the Humble branch*
+
+`sudo apt-get install libserial-dev`
+
+`colcon build --symlink-install` should work!
 
 ## 2023 Notes and Progress
 
