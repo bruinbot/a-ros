@@ -313,3 +313,16 @@ ros2 topic echo /detected_ball
 
 ### Data Collection (via rosbag)
 https://github.com/bruinbot/a-datacollection
+
+
+### Rosbags
+
+We want to record bags in mcap format so they can be visualized on foxglove. Install the following to enable saving as mcap.
+```
+$ sudo apt install ros-humble-rosbag2-storage-mcap
+```
+
+Record bags as follows
+```
+$ ros2 bag record -s mcap /topic1 /topic2 ...
+```
